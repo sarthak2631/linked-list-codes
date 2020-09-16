@@ -1,0 +1,91 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+typedef struct LinkedListNode LinkedListNode;
+
+struct LinkedListNode {
+    int val;
+    LinkedListNode *next;
+};
+
+LinkedListNode* _insert_node_into_singlylinkedlist(LinkedListNode *head, LinkedListNode *tail, int val, int pos) {
+    if(head == NULL) {
+        head = (LinkedListNode *) (malloc(sizeof(LinkedListNode)));
+        head->val = val;
+        head->next = NULL;
+        tail = head;
+    }
+    else if(pos==0)
+    {
+      LinkedListNode *temp = (LinkedListNode *) (malloc(sizeof(LinkedListNode)));
+        temp->val=val;
+        temp->next=head;
+        head=temp;
+    }
+    else {
+        int i=0;
+        LinkedListNode *node = (LinkedListNode *) (malloc(sizeof(LinkedListNode)));
+        LinkedListNode *temp = (LinkedListNode *) (malloc(sizeof(LinkedListNode)));
+        node=head;
+        for(i=0;i<pos-1;i++)
+        {node=node->next;
+        }
+        temp->val = val;
+        temp->next=node->next;
+        node->next =temp;
+    }
+    
+    return head;
+}
+
+// BODY STARTS HERE
+
+
+/*
+ * Complete the function below.
+ */
+/*
+For your reference:
+LinkedListNode {
+    int val;
+    LinkedListNode *next;
+};
+*/
+void print(LinkedListNode* head) {
+LinkedListNode* temp;
+    temp=head;
+    while(temp->next != NULL)
+    {
+        printf("%d->",temp->val);
+        temp=temp->next;
+    }
+    printf("%d",temp->val);
+}
+
+//BODY ENDS HERE
+
+int main()
+{
+    int head_size = 0;
+
+    LinkedListNode* head = NULL;
+    LinkedListNode* head_tail = NULL;
+
+    scanf("%d\n", &head_size);
+    for(int i = 0; i < head_size; i++) {
+        int head_item,pos;
+        scanf("%d", &pos);
+        scanf("%d", &head_item);
+        head = _insert_node_into_singlylinkedlist(head, head_tail, head_item,pos);
+    }
+      
+
+
+    print(head);
+    
+    return 0;
+}
